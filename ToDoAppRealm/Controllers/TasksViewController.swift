@@ -42,7 +42,10 @@ class TasksViewController: UITableViewController {
 extension TasksViewController {
     
     private func showAlert() {
-        
-    
+        let alert = UIAlertController.createAlert(withTitle: "New Task", andMessage: "What do You want to do?")
+        alert.action { newValue, note in
+            
+        }
+        present(alert, animated: true)
     }
 }
