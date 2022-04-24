@@ -47,6 +47,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="cdk-1W-Snu" kind="show" id="pxz-Qc-j4J"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -57,9 +60,6 @@
                     <navigationItem key="navigationItem" title="Task List" id="wwW-2g-Z7l">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="VbR-ak-ft5"/>
                     </navigationItem>
-                    <connections>
-                        <segue destination="cdk-1W-Snu" kind="show" id="gCD-6M-cCd"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gNo-4t-i5C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
