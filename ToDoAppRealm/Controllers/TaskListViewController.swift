@@ -10,18 +10,18 @@ import RealmSwift
 class TaskListViewController: UITableViewController {
     
     private var taskLists: Results<TaskList>!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         createTempData()
         taskLists = StorageManager.shared.realm.objects(TaskList.self)
     }
-
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         taskLists.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskListCell", for: indexPath)
         let taskList = taskLists[indexPath.row]
@@ -29,10 +29,10 @@ class TaskListViewController: UITableViewController {
         content.text = taskList.name
         content.secondaryText = "\(taskList.tasks.count)"
         cell.contentConfiguration = content
-
+        
         return cell
     }
-
+    
     @IBAction func addButtonPressed(_ sender: Any) {
         showAlert()
     }
