@@ -17,6 +17,7 @@
 		5F2EE14228158C9A00DB4B13 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2EE14128158C9A00DB4B13 /* TaskListViewController.swift */; };
 		5F2EE146281AEA5200DB4B13 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2EE145281AEA5200DB4B13 /* TaskList.swift */; };
 		5F2EE149281AEDE200DB4B13 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2EE148281AEDE200DB4B13 /* DataManager.swift */; };
+		5F2EE14C281D1EF500DB4B13 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2EE14B281D1EF500DB4B13 /* StorageManager.swift */; };
 		A2283F42CC66CEAA4C02BE75 /* Pods_ToDoAppRealm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4545D41026629FC02550744 /* Pods_ToDoAppRealm.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		5F2EE14128158C9A00DB4B13 /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		5F2EE145281AEA5200DB4B13 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		5F2EE148281AEDE200DB4B13 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		5F2EE14B281D1EF500DB4B13 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		8CF401EE2154CC96D311ECB7 /* Pods-ToDoAppRealm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoAppRealm.release.xcconfig"; path = "Target Support Files/Pods-ToDoAppRealm/Pods-ToDoAppRealm.release.xcconfig"; sourceTree = "<group>"; };
 		D2CAF0FD3297FD088E73E05F /* Pods-ToDoAppRealm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoAppRealm.debug.xcconfig"; path = "Target Support Files/Pods-ToDoAppRealm/Pods-ToDoAppRealm.debug.xcconfig"; sourceTree = "<group>"; };
 		F4545D41026629FC02550744 /* Pods_ToDoAppRealm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoAppRealm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				5F2EE148281AEDE200DB4B13 /* DataManager.swift */,
+				5F2EE14B281D1EF500DB4B13 /* StorageManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				5F2EE12A2815736500DB4B13 /* AppDelegate.swift in Sources */,
 				5F2EE12C2815736500DB4B13 /* SceneDelegate.swift in Sources */,
 				5F2EE14228158C9A00DB4B13 /* TaskListViewController.swift in Sources */,
+				5F2EE14C281D1EF500DB4B13 /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

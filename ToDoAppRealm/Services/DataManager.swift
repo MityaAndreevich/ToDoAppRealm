@@ -36,6 +36,11 @@ class DataManager {
             
             shoppingList.tasks.append(milk)
             shoppingList.tasks.insert(contentsOf: [bread, apples], at: 1)
+            
+            DispatchQueue.main.async {
+                StorageManager.shared.save([shoppingList, moviesList])
+                completion()
+            }
         }
     }
 }

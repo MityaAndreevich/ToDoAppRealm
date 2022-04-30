@@ -11,6 +11,7 @@ class TaskListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        createTempData()
     }
 
     // MARK: - Table view data source
@@ -28,8 +29,17 @@ class TaskListViewController: UITableViewController {
         return cell
     }
 
-    private func addButtonPressed() {
+    @IBAction func addButtonPressed(_ sender: Any) {
         showAlert()
+    }
+    
+    @IBAction func sortingList(_ sender: UISegmentedControl) {
+    }
+    
+    private func createTempData() {
+        DataManager.shared.createTempData {
+            self.tableView.reloadData()
+        }
     }
 }
 
