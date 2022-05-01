@@ -5,13 +5,15 @@
 //  Created by Dmitry Logachev on 24.04.2022.
 //
 
-import UIKit
+import RealmSwift
 
 class TasksViewController: UITableViewController {
     
+    var taskList: TaskList!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        title = taskList.name
     }
     
     // MARK: - Table view data source

@@ -33,6 +33,13 @@ class TaskListViewController: UITableViewController {
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+        guard let tasksVC = segue.destination as? TasksViewController else { return }
+        let taskList = taskLists[indexPath.row]
+        tasksVC.taskList = taskList
+    }
+    
     @IBAction func addButtonPressed(_ sender: Any) {
         showAlert()
     }
