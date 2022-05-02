@@ -19,7 +19,16 @@ class TasksViewController: UITableViewController {
         title = taskList.name
         currentTasks = taskList.tasks.filter("isCompleted = false")
         completedTasks = taskList.tasks.filter("isCompleted = true")
+        
+        let addButton = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(addButtonPressed)
+        )
+        
+        navigationItem.rightBarButtonItems = [addButton, editButtonItem]
     }
+    
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -45,7 +54,7 @@ class TasksViewController: UITableViewController {
         return cell
     }
     
-    private func addButtonPressed() {
+    @objc private func addButtonPressed() {
         showAlert()
     }
 }
