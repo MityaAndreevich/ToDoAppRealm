@@ -55,9 +55,15 @@ extension TasksViewController {
     private func showAlert() {
         let alert = UIAlertController.createAlert(withTitle: "New Task", andMessage: "What do You want to do?")
         alert.action { newValue, note in
-            
+            self.saveTask(withName: newValue, andNote: note)
         }
         present(alert, animated: true)
     }
     
+    private func saveTask(withName name: String, andNote note: String) {
+        let task = Task(value: [name, note])
+        StorageManager.shared.save(task, to: taskList)
+        let rowIndex = IndexPath(row: currentTasks.index(of: task) ?? 0, section: 0)
+        tableView.insertRows(at: [rowIndex], with: .automatic)
+    }
 }

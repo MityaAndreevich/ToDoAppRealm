@@ -12,7 +12,7 @@ class StorageManager {
     let realm = try! Realm()
     
     private init() {}
-    
+    //MARK: - TaskList Methods
     func save(_ taskLists: [TaskList]) {
         write {
             realm.add(taskLists)
@@ -22,6 +22,13 @@ class StorageManager {
     func save(_ taskList: TaskList) {
         write {
             realm.add(taskList)
+        }
+    }
+    
+    //MARK: - Tasks Methods
+    func save(_ task: Task, to taskList: TaskList) {
+        write {
+            taskList.tasks.append(task)
         }
     }
     
