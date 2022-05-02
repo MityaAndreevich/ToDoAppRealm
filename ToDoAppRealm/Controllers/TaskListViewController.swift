@@ -15,6 +15,8 @@ class TaskListViewController: UITableViewController {
         super.viewDidLoad()
         createTempData()
         taskLists = StorageManager.shared.realm.objects(TaskList.self)
+        
+        navigationItem.leftBarButtonItem = editButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,5 +79,4 @@ extension TaskListViewController {
         let rowIndex = IndexPath(row: taskLists.index(of: taskList) ?? 0, section: 0)
         tableView.insertRows(at: [rowIndex], with: .automatic)
     }
-    
 }
