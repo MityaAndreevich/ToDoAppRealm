@@ -25,6 +25,12 @@ class StorageManager {
         }
     }
     
+    func delete(_ taskList: TaskList) {
+        write {
+            realm.delete(taskList)
+        }
+    }
+    
     //MARK: - Tasks Methods
     func save(_ task: Task, to taskList: TaskList) {
         write {
