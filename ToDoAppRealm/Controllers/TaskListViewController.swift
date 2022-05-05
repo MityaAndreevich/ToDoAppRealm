@@ -49,8 +49,13 @@ class TaskListViewController: UITableViewController {
             StorageManager.shared.delete(taskList)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, _ in
+            self.showAlert(with: taskList) {
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+        }
         
-        return UISwipeActionsConfiguration(actions: [deleteAction])
+        return UISwipeActionsConfiguration(actions: [editAction, deleteAction])
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -76,11 +81,16 @@ class TaskListViewController: UITableViewController {
 
 extension TaskListViewController {
     
-    private func showAlert() {
-        let alert = UIAlertController.createAlert(withTitle: "New List", andMessage: "Please, insert new value")
+    private func showAlert(with taskList: TaskList? = nil, completion: (() -> Void)? = nil) {
+        let alert = AlertController.createAlert(withTitle: "New List", andMessage: "Please, insert new value")
         
-        alert.action { newValue in
-            self.save(newValue)
+        alert.action(with: taskList) { newValue in
+            if let taskList = taskList, let completion = completion {
+                StorageManager.shared.editTaskList(taskList, newValue: newValue)
+                completion()
+            } else {
+                self.save(newValue)
+            }
         }
         
         present(alert, animated: true)

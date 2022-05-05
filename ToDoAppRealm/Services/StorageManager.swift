@@ -32,6 +32,12 @@ class StorageManager {
         }
     }
     
+    func editTaskList(_ taskList: TaskList, newValue: String) {
+        write {
+            taskList.name = newValue
+        }
+    }
+    
     //MARK: - Tasks Methods
     func save(_ task: Task, to taskList: TaskList) {
         write {
