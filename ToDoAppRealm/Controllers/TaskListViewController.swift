@@ -49,10 +49,11 @@ class TaskListViewController: UITableViewController {
             StorageManager.shared.delete(taskList)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
-        let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, _ in
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, isDone in
             self.showAlert(with: taskList) {
                 tableView.reloadRows(at: [indexPath], with: .automatic)
             }
+            isDone(true)
         }
         
         return UISwipeActionsConfiguration(actions: [editAction, deleteAction])
