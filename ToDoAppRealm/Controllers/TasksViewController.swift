@@ -69,9 +69,9 @@ class TasksViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
-        let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, isDone in
-            StorageManager.shared.edit(tasks, with: <#T##String#>, withNewNote: <#T##String#>)
-        }
+        //let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, isDone in
+            
+        //}
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
