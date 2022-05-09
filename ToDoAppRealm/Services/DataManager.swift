@@ -18,10 +18,8 @@ class DataManager {
             
             let moviesList = TaskList(value:
                                         ["Movies List", Date(),
-                                         [
-                                            ["Best Film Ever"],
-                                            ["Second best film ever", "Must see", Date(), true]
-                                         ]
+                                         [["Best Film Ever"],
+                                          ["Second best film ever", "Must see", Date(), true]]
                                         ])
             
             let shoppingList = TaskList()

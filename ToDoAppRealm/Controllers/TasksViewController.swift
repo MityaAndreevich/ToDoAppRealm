@@ -69,20 +69,46 @@ class TasksViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
-        //let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, isDone in
-            
-        //}
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, isDone in
+            self.showAlert(with: tasks) {
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+            isDone(true)
+        }
         
-        return UISwipeActionsConfiguration(actions: [deleteAction])
+        let doneTitle = indexPath.section == 0 ? "Done" : "Undone"
+        
+        let doneAction = UIContextualAction(style: .normal, title: doneTitle) { _, _, isDone in
+            StorageManager.shared.done(tasks)
+            let indexPathForCurrentTask = IndexPath(row: self.currentTasks.count - 1, section: 0)
+            let indexPathForRowForCompletedTask = IndexPath(row: self.completedTasks.count - 1, section: 1)
+            let destinationIndexRow = indexPath.section == 0 ? indexPathForRowForCompletedTask : indexPathForCurrentTask
+            tableView.moveRow(at: indexPath, to: destinationIndexRow)
+            
+            isDone(true)
+        }
+        
+        editAction.backgroundColor = .orange
+        doneAction.backgroundColor = .green
+        
+        return UISwipeActionsConfiguration(actions: [doneAction, editAction, deleteAction])
     }
 }
 
 extension TasksViewController {
     
-    private func showAlert() {
-        let alert = AlertController.createAlert(withTitle: "New Task", andMessage: "What do You want to do?")
-        alert.action { newValue, note in
-            self.saveTask(withName: newValue, andNote: note)
+    private func showAlert(with tasks: Task? = nil, completion: (() -> Void)? = nil) {
+        let title = tasks != nil ? "Edit Task" : "New Task"
+        
+        let alert = AlertController.createAlert(withTitle: title, andMessage: "What do You want to do?")
+        
+        alert.action() { newValue, note in
+            if let tasks = tasks, let completion = completion {
+                StorageManager.shared.edit(tasks, with: newValue, withNewNote: note)
+                completion()
+            } else {
+                self.saveTask(withName: newValue, andNote: note)
+            }
         }
         present(alert, animated: true)
     }
