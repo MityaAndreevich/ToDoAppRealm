@@ -7,19 +7,16 @@
 
 import UIKit
 
-class AlertController: UIAlertController {
+extension UIAlertController {
     
-    var doneButton = "Save"
-    
-    static func createAlert(withTitle title: String, andMessage message: String) -> AlertController {
-        AlertController(title: title, message: message, preferredStyle: .alert)
+    static func createAlert(withTitle title: String, andMessage message: String) -> UIAlertController {
+        UIAlertController(title: title, message: message, preferredStyle: .alert)
     }
     
     func action(with taskList: TaskList?, completion: @escaping (String) -> Void) {
+        let doneButton = taskList == nil ? "Save" : "Update"
         
-        if taskList != nil { doneButton = "Update"}
-        
-        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+        let saveAction = UIAlertAction(title: doneButton, style: .default) { _ in
             guard let newValue = self.textFields?.first?.text else { return }
             guard !newValue.isEmpty else { return }
             completion(newValue)
@@ -35,8 +32,10 @@ class AlertController: UIAlertController {
         }
     }
     
-    func action(completion: @escaping (String, String) -> Void) {
-        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+    func action(with task: Task? ,completion: @escaping (String, String) -> Void) {
+        let title = task == nil ? "Save" : "Update"
+        
+        let saveAction = UIAlertAction(title: title, style: .default) { _ in
             guard let newTask = self.textFields?.first?.text else { return }
             guard !newTask.isEmpty else { return }
             
@@ -53,10 +52,12 @@ class AlertController: UIAlertController {
         addAction(cancelAction)
         addTextField { textField in
             textField.placeholder = "New Task"
+            textField.text = task?.name
         }
         
         addTextField { textField in
             textField.placeholder = "Note"
+            textField.text = task?.note
         }
     }
 }

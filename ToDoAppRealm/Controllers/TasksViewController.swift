@@ -17,8 +17,6 @@ class TasksViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = taskList.name
-        currentTasks = taskList.tasks.filter("isCompleted = false")
-        completedTasks = taskList.tasks.filter("isCompleted = true")
         
         let addButton = UIBarButtonItem(
             barButtonSystemItem: .add,
@@ -27,8 +25,10 @@ class TasksViewController: UITableViewController {
         )
         
         navigationItem.rightBarButtonItems = [addButton, editButtonItem]
+        
+        currentTasks = taskList.tasks.filter("isCompleted = false")
+        completedTasks = taskList.tasks.filter("isCompleted = true")
     }
-    
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -50,27 +50,23 @@ class TasksViewController: UITableViewController {
         content.text = task.name
         content.secondaryText = task.note
         cell.contentConfiguration = content
-        
         return cell
-    }
-    
-    @objc private func addButtonPressed() {
-        showAlert()
     }
     
     //MARK: - UiTableView delegate
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let tasks = indexPath.section == 0
+        
+        let task = indexPath.section == 0
         ? currentTasks[indexPath.row]
         : completedTasks[indexPath.row]
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
-            StorageManager.shared.delete(tasks)
+            StorageManager.shared.delete(task)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
         let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, isDone in
-            self.showAlert(with: tasks) {
+            self.showAlert(with: task) {
                 tableView.reloadRows(at: [indexPath], with: .automatic)
             }
             isDone(true)
@@ -79,7 +75,7 @@ class TasksViewController: UITableViewController {
         let doneTitle = indexPath.section == 0 ? "Done" : "Undone"
         
         let doneAction = UIContextualAction(style: .normal, title: doneTitle) { _, _, isDone in
-            StorageManager.shared.done(tasks)
+            StorageManager.shared.done(task)
             let indexPathForCurrentTask = IndexPath(row: self.currentTasks.count - 1, section: 0)
             let indexPathForRowForCompletedTask = IndexPath(row: self.completedTasks.count - 1, section: 1)
             let destinationIndexRow = indexPath.section == 0 ? indexPathForRowForCompletedTask : indexPathForCurrentTask
@@ -93,18 +89,22 @@ class TasksViewController: UITableViewController {
         
         return UISwipeActionsConfiguration(actions: [doneAction, editAction, deleteAction])
     }
+    
+    @objc private func addButtonPressed() {
+        showAlert()
+    }
 }
 
 extension TasksViewController {
     
-    private func showAlert(with tasks: Task? = nil, completion: (() -> Void)? = nil) {
-        let title = tasks != nil ? "Edit Task" : "New Task"
+    private func showAlert(with task: Task? = nil, completion: (() -> Void)? = nil) {
+        let title = task != nil ? "Edit Task" : "New Task"
         
-        let alert = AlertController.createAlert(withTitle: title, andMessage: "What do You want to do?")
+        let alert = UIAlertController.createAlert(withTitle: title, andMessage: "What do You want to do?")
         
-        alert.action() { newValue, note in
-            if let tasks = tasks, let completion = completion {
-                StorageManager.shared.edit(tasks, with: newValue, withNewNote: note)
+        alert.action(with: task) { newValue, note in
+            if let task = task, let completion = completion {
+                StorageManager.shared.edit(task, with: newValue, withNewNote: note)
                 completion()
             } else {
                 self.saveTask(withName: newValue, andNote: note)

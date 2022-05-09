@@ -81,18 +81,13 @@ class TaskListViewController: UITableViewController {
         : taskLists.sorted(byKeyPath: "name")
         tableView.reloadData()
     }
-    
-    private func createTempData() {
-        DataManager.shared.createTempData {
-            self.tableView.reloadData()
-        }
-    }
 }
 
 extension TaskListViewController {
     
     private func showAlert(with taskList: TaskList? = nil, completion: (() -> Void)? = nil) {
-        let alert = AlertController.createAlert(withTitle: "New List", andMessage: "Please, insert new value")
+        let title = taskList != nil ? "Edit List" : "New List"
+        let alert = UIAlertController.createAlert(withTitle: title, andMessage: "Please, insert new value")
         
         alert.action(with: taskList) { newValue in
             if let taskList = taskList, let completion = completion {
@@ -111,5 +106,11 @@ extension TaskListViewController {
         StorageManager.shared.save(taskList)
         let rowIndex = IndexPath(row: taskLists.index(of: taskList) ?? 0, section: 0)
         tableView.insertRows(at: [rowIndex], with: .automatic)
+    }
+    
+    private func createTempData() {
+        DataManager.shared.createTempData {
+            self.tableView.reloadData()
+        }
     }
 }
